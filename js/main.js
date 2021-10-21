@@ -19,12 +19,19 @@ const youngDiscount = 0.2; // if age < 18
 const oldDiscount = 0.4; // if age > 65
 
 // User Input
-const distance = prompt('Quanti chilometri vuoi percorrere?');
+let distance = parseFloat(prompt('Quanti chilometri vuoi percorrere?'));
+while (isNaN(distance)) {
+    alert('Inserire un valore numerico!');
+    distance = parseFloat(prompt('Quanti chilometri vuoi percorrere?'));
+}
 document.getElementById('distance').innerHTML = `Distanza di viaggio: ${distance} km`;
-const age = prompt('Quanti anni hai?');
-document.getElementById('age').innerHTML = `Età: ${age} anni`;
 
-// Input check?
+let age = parseInt(prompt('Quanti anni hai?'));
+while (isNaN(age)) {
+    alert('Inserire un valore numerico!');
+    age = parseInt(prompt('Quanti anni hai?'));
+}
+document.getElementById('age').innerHTML = `Età: ${age} anni`;
 
 // Ticket price calc without discounts
 let baseTicketPrice = distance * basePrice;
@@ -38,7 +45,7 @@ if (age < 18) {
     discount = baseTicketPrice * youngDiscount;
     young = true;
 } 
-if (age > 65) {
+if (age >= 65) {
     discount = baseTicketPrice * oldDiscount;
     old = true;
 } 
