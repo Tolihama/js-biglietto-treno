@@ -21,25 +21,39 @@ const oldDiscount = 0.4; // if age > 65
 // User Input
 const distance = prompt('Quanti chilometri vuoi percorrere?');
 const age = prompt('Quanti anni hai?');
-console.log(`Distanza: ${distance}`);
-console.log(`Age: ${age}`);
 
 // Ticket price calc without discounts
-let ticketPrice = distance * basePrice;
-console.log(`Ticket price without discount: ${ticketPrice}`);
+let baseTicketPrice = distance * basePrice;
 
 // Evaluate discount in special cases
-let discount;
+let discount = 0;
+let young = false;
+let old = false;
+
 if (age < 18) {
-    discount = ticketPrice * youngDiscount;
-    ticketPrice -= discount;
-} else if (age > 65) {
-    discount = ticketPrice * oldDiscount;
-    ticketPrice -= discount;
-} else {
-    discount = 0;
-}
+    discount = baseTicketPrice * youngDiscount;
+    young = true;
+} 
+if (age > 65) {
+    discount = baseTicketPrice * oldDiscount;
+    old = true;
+} 
+
+let actualPrice = baseTicketPrice - discount;
 
 // Output
-actualPrice = ticketPrice.toFixed(2);
-console.log(actualPrice);
+baseTicketPrice = baseTicketPrice.toFixed(2);
+actualPrice = actualPrice.toFixed(2);
+document.writeln(`Prezzo base: ${basePrice}€/km`);
+document.writeln("Dati immessi dall'utente");
+document.writeln(`- Distanza di viaggio: ${distance}km`);
+document.writeln(`- Età: ${age} anni`);
+document.writeln('Calcolo prezzo del biglietto');
+document.writeln(`- Costo base: ${baseTicketPrice}€`);
+if (young === true) {
+    document.writeln(`Sconto under 18 (${youngDiscount * 100}%): ${discount}€`);
+}
+if (old === true) {
+    document.writeln(`Sconto over 65 (${oldDiscount * 100}%): ${discount}€`);
+}
+document.writeln(`- Prezzo finale: ${actualPrice}€`);
